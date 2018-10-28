@@ -1,0 +1,9 @@
+*.DS_Store*
+*.log
+*.orig
+
+node_modules/
+test/
+
+README.md
+yarn.lock

@@ -1,0 +1,9 @@
+!.gitignore
+!.npmignore
+!.travis.yml
+
+*.DS_Store*
+*.log
+*.orig
+
+node_modules/
