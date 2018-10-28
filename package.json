@@ -31,5 +31,9 @@
     "node": ">=9.11.1"
   },
   "author": "wwayne",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wwayne/minii.git"
+  },
   "license": "MIT"
 }
