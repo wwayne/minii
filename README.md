@@ -22,72 +22,8 @@ Official doc: [how to use npm in wechat](https://developers.weixin.qq.com/minipr
 ## How to use
 There is only two API from Minii, `observe` and `mapToData` (minii 只有两个API方法 `observe` 和 `mapToData`)
 
-Code structure of the following example (下面例子的代码结构)
+![carbon](https://user-images.githubusercontent.com/5305874/47693229-cb79cc80-dc33-11e8-834c-a6715f8d9cc5.png)
 
-```
-pages/
-  index/
-    index.js
-    index.html
-    index.json
-stores/
-  user.js
-app.js
-app.json
-```
-
-1.Observe a store (每个store可以理解为一个model，通过observe观察每个model)
-
-```js
-// stores/user.js
-
-import { observe } from 'minii'
-
-class UserStore {
-  constructor () {
-    this.name = 'A'
-  }
-  
-  changeName () {
-    this.name = 'B'
-  }
-}
-
-export default observe(new User(), 'user') // if the second params is undefined, the name will be className.toLowerCase(), in this case is `userstore` 
-```
-
-2.Connect the observed store with Page (将store里面的数据和小程序每一个页面关联起来)
-
-```js
-// pages/index/index.js
-
-import { mapToData } from 'minii'
-import userStore from '../../stores/user'
-
-const connect = mapToData((state) => ({
-  name: state.user.name
-}))
-
-Page(connect({
-  onTap() {
-    userStore.changeName()
-  }
-}))
-```
-
-3.That's all, the data on page will be sync with store data automatically (这样就好了，通过store的方法改变store的变量就可以让这些变化自动在页面上被响应)
-
-```
-// pages/index/index.html
-
-<p>{{ name }}</p>
-<button catchtap="onTap">change name</button>
-```
-
-## TODO
-- [] Observe property add and remove
-- [] More unit testing for Proxy
-- [] Uglify source files
 
 ## License
 
