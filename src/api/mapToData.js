@@ -7,11 +7,13 @@ module.exports = function (dataFn) {
     const dataFromStore = dataFn(storeMap)
 
     pageOpt.data = Object.assign({}, data, dataFromStore)
+
     pageOpt.onReady = function () {
       const targetPage = this
       notifyStack.push([targetPage, dataFn, cloneObj(dataFromStore)])
       onReady && onReady.call(this)
     }
+
     pageOpt.onUnload = function () {
       notifyStack.pop()
       onUnload && onUnload.call(this)

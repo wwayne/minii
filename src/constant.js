@@ -1,5 +1,6 @@
 /**
  * {storeName: StoreInternalVariables}
+ * Always keep storeMap as pure object without Proxy
  */
 exports.storeMap = {}
 

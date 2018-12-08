@@ -4,6 +4,5 @@
 
 node_modules/
 test/
-
-README.md
-yarn.lock
+src/
+gulpfile.js

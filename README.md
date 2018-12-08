@@ -15,7 +15,7 @@ The base library should greater than 2.2.1 (小程序基础库版本 2.2.1 或�
 
 2. In WeChat Developer Tool, Tools -> build npm (在开发者工具里面依次点击 工具 -> 构建 npm)
 
-3. In WeChat Developer Tool, Details -> check `Use NPM module` (在开发者工具的详情里面勾选 `使用 npm 模块`) 
+3. In WeChat Developer Tool, Details -> check `Use NPM module` (在开发者工具的详情里面勾选 `使用 npm 模块`)
 
 Official doc: [how to use npm in wechat](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html?t=18082018)
 
@@ -24,6 +24,9 @@ There is only two API from Minii, `observe` and `mapToData` (minii 只有两个A
 
 ![carbon](https://user-images.githubusercontent.com/5305874/47693229-cb79cc80-dc33-11e8-834c-a6715f8d9cc5.png)
 
+## Deployment
+1. `$ npm run build`
+2. `$ npm publish`
 
 ## License
 

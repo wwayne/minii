@@ -24,7 +24,7 @@ describe('Utils', () => {
       done()
     })
 
-    it('should return false if two objects are different', done => {
+    it('should return false if two objects are different', (done) => {
       const obj1 = {
         a: 'a',
         b: ['b']
@@ -39,7 +39,7 @@ describe('Utils', () => {
   })
 
   context('cloneObj', () => {
-    it('should deep copy object', done => {
+    it('should deep copy object', (done) => {
       const obj = {
         a: 'a',
         b: {

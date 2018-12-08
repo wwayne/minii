@@ -69,3 +69,11 @@ const cloneArray = (array) => {
 }
 
 exports.cloneObj = cloneObj
+
+/**
+ * is it need to be proxy
+ */
+exports.isProxyNeeded = (value) => {
+  const type = Object.prototype.toString.call(value)
+  return type === '[object Object]' || type === '[object Array]'
+}

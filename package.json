@@ -1,22 +1,28 @@
 {
   "name": "minii",
-  "version": "0.1.0",
+  "version": "0.3.2",
   "description": "state management for wechat mini app",
   "main": "src/index.js",
   "scripts": {
     "fix": "standard --fix --verbose | snazzy",
     "lint": "standard --verbose | snazzy",
-    "test": "mocha ./test/*.test.js"
+    "test": "mocha ./test/*.test.js",
+    "build": "gulp"
   },
   "miniprogram": "src",
   "standard": {
     "env": [
       "mocha"
     ],
-    "globals": ["wx"]
+    "globals": [
+      "wx"
+    ]
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-uglify-es": "^1.0.4",
     "mocha": "^5.2.0",
     "sinon": "^7.1.0",
     "snazzy": "^8.0.0",
@@ -28,7 +34,7 @@
     "state-management"
   ],
   "engines": {
-    "node": ">=9.11.1"
+    "node": ">=10.0.0"
   },
   "author": "wwayne",
   "repository": {

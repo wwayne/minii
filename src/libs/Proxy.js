@@ -1,10 +1,11 @@
 const { system } = wx.getSystemInfoSync()
 
-if (/ios/i.test(system)) {
-  module.exports = Proxy
-} else {
-  // TODO: unit testing
-  module.exports = function (obj, handler) {
+let proxy
+try {
+  proxy = Proxy
+  // throw new Error() // Testing for env without Proxy
+} catch (err) {
+  proxy = function (obj, handler) {
     const proxyObj = Object.create(obj.constructor.prototype, {
       '__proxyhandler__': {
         value: handler
@@ -20,3 +21,5 @@ if (/ios/i.test(system)) {
     return proxyObj
   }
 }
+
+module.exports = proxy

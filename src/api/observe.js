@@ -1,7 +1,7 @@
 const { storeMap } = require('../constant')
 const { notifyUpdate } = require('../core')
-const { cloneObj } = require('../utils')
-const Proxy = require('../Proxy')
+const { cloneObj, isProxyNeeded } = require('../utils')
+const Proxy = require('../libs/Proxy')
 
 module.exports = function (storeInstance, storeName) {
   storeName = storeName || storeInstance.constructor.name.toLowerCase()
@@ -11,28 +11,50 @@ module.exports = function (storeInstance, storeName) {
     storeMap[storeName] = cloneObj(storeInstance, ownProps)
   }
 
-  return addProxy(storeInstance, storeMap[storeName])
+  return addProxy(storeInstance, [storeName])
 }
 
-const addProxy = (object, targetInStoreMap) => {
+const addProxy = (object, keys) => {
   Object.keys(object).forEach(key => {
-    const type = Object.prototype.toString.call(object[key])
-    if (type === '[object Object]' || type === '[object Array]') {
-      object[key] = addProxy(object[key], targetInStoreMap[key])
-      object[key].__isProxy = true
+    if (isProxyNeeded(object[key])) {
+      object[key] = addProxy(object[key], keys.concat([key]))
     }
   })
 
   return new Proxy(object, {
     get (target, key) {
       if (key === '__isProxy') return true
-      if (target[key] && target[key].__isProxy) return target[key]
-      return targetInStoreMap[key] || target[key]
+      if (key === '__original') return findInStoreMap(keys)
+      const targetValue = Reflect.get(target, key)
+      if (targetValue && targetValue.__isProxy) return targetValue
+      const valueInStoreMap = findInStoreMap(keys.concat([key]))
+      return valueInStoreMap !== undefined && valueInStoreMap || targetValue
     },
     set (target, key, value) {
-      targetInStoreMap[key] = value
+      if (key === '__isProxy') return true
+      const pureValue = value.__isProxy && value.__original || value
+      const objectValue = isProxyNeeded(pureValue) && addProxy(cloneObj(pureValue), keys.concat([key])) || pureValue
+      const res = Reflect.set(target, key, objectValue)
+      setValueInStoreMap(keys.concat([key]), pureValue)
       notifyUpdate()
-      return value
+      return res
     }
   })
+}
+
+const findInStoreMap = (keys) => {
+  return keys.reduce((acc, key) => {
+    return acc && acc[key] || undefined
+  }, storeMap)
+}
+
+const setValueInStoreMap = (keys, value) => {
+  const len = keys.length
+  const lastKey = keys[len - 1]
+  let target = storeMap
+  keys.forEach((key, index) => {
+    if (index === len - 1) return
+    target = target[key]
+  })
+  target[lastKey] = value
 }

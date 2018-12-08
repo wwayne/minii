@@ -5,13 +5,13 @@ const { mapToData } = require('../src')
 const { notifyStack } = require('../src/constant')
 
 describe('API mapToData', () => {
-  after(done => {
+  after((done) => {
     notifyStack.splice(0, notifyStack.length)
     done()
   })
 
   context('mapping page data', () => {
-    it('should add new page data', done => {
+    it('should add new page data', (done) => {
       const pageOpt = {
         data: {
           name: 'wwayne'
@@ -26,7 +26,7 @@ describe('API mapToData', () => {
       done()
     })
 
-    it('should cover original page data if same key from dataFn', done => {
+    it('should cover original page data if same key from dataFn', (done) => {
       const pageOpt = {
         data: {
           name: 'wwayne'
@@ -48,7 +48,7 @@ describe('API mapToData', () => {
   })
 
   context('page lifecycle injecting', () => {
-    it('should update notifyStack with page load and unload', done => {
+    it('should update notifyStack with page load and unload', (done) => {
       const pageOpt = {}
       const dataFn = () => ({})
 

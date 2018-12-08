@@ -7,3 +7,4 @@
 *.orig
 
 node_modules/
+dist/

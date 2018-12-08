@@ -7,7 +7,7 @@ const { notifyStack } = require('../src/constant')
 
 let spy
 describe('Core', () => {
-  before(done => {
+  before((done) => {
     spy = sinon.spy()
     const targetPage = { setData: spy }
     const dataFn = () => ({})
@@ -16,13 +16,13 @@ describe('Core', () => {
     done()
   })
 
-  after(done => {
+  after((done) => {
     notifyStack.splice(0, notifyStack.length)
     done()
   })
 
   context('notifyUpdate', () => {
-    it('should call setData for every pages in notifyStack', done => {
+    it('should call setData for every pages in notifyStack', (done) => {
       new Array(100).fill('').forEach(() => notifyUpdate())
       setTimeout(() => {
         spy.callCount.should.equal(10)
