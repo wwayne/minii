@@ -28,8 +28,10 @@ The base library should greater than 2.2.1 (小程序基础库版本 2.2.1 或�
 Official doc: [how to use npm in wechat](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html?t=18082018)
 
 ## How to use 如何使用
-#### 1. Subsribe your state 订阅你的状态
+#### 1. create store for the state 创建store(model)来保存对应的state
 ```JS
+// stores/user.js
+
 import { observe } from 'minii'
 
 class UserStore {
@@ -45,7 +47,16 @@ class UserStore {
 export default observe(new UserSore(), 'user')
 ```
 
-#### 2. connect the state to the page 将状态和页面联系起来
+#### 2. subscribe state 通过在app.js里面require创建的store来完成对于state的订阅
+```JS
+// stores/index.js
+export userStore from './user'
+
+// app.js
+require('./stores/index')
+```
+
+#### 3. connect the state to the page 将状态和页面联系起来
 ```JS
 import { mapToData } from 'minii'
 import userStore from '../../stores/user'
@@ -63,7 +74,7 @@ Page(connect({
 }))
 ```
 
-#### 3. That'it, the state has bind to Page's data 完成了，页面中的data和状态就这样被绑定在了一起
+#### 4. That'it, the state has bind to Page's data 完成了，页面中的data和状态就这样被绑定在了一起
 ```html
 <view>
   <text>My name</text>
