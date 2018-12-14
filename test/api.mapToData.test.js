@@ -49,7 +49,7 @@ describe('API mapToData', () => {
 
   context('page lifecycle injecting', () => {
     it('should update notifyStack with page load and unload', (done) => {
-      const pageOpt = {}
+      const pageOpt = { setData: () => {} }
       const dataFn = () => ({})
 
       const connect = mapToData(dataFn)
@@ -60,6 +60,19 @@ describe('API mapToData', () => {
       notifyStack.should.have.lengthOf(2)
       newPageOpt.onUnload()
       notifyStack.should.have.lengthOf(1)
+      done()
+    })
+
+    it('should setData when page load', (done) => {
+      let called = false
+      const pageOpt = { setData: () => { called = true } }
+      const dataFn = () => ({})
+
+      const connect = mapToData(dataFn)
+      const newPageOpt = connect(pageOpt)
+      newPageOpt.onReady()
+      called.should.equal(true)
+
       done()
     })
   })
