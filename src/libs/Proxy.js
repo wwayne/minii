@@ -1,8 +1,7 @@
-const { system } = wx.getSystemInfoSync()
-
 let proxy
 try {
   proxy = Proxy
+  if (!proxy) throw new Error()
   // throw new Error() // Testing for env without Proxy
 } catch (err) {
   proxy = function (obj, handler) {

@@ -3,21 +3,13 @@ const { cloneObj } = require('../utils')
 
 module.exports = function (dataFn) {
   return function (pageOpt) {
-    const { data, onReady, onUnload } = pageOpt
-
-    pageOpt.data = Object.assign({}, data, dataFn(storeMap))
+    const { onReady, onUnload } = pageOpt
 
     pageOpt.onReady = function () {
       const targetPage = this
       const dataFromStore = dataFn(storeMap)
-
-      // 通知 stack
+      targetPage.setData(Object.assign({}, this.data, dataFromStore))
       notifyStack.push([targetPage, dataFn, cloneObj(dataFromStore)])
-      
-      // 新页面的数据和 store 同步
-      const currentData = Object.assign({}, data, dataFromStore)
-      targetPage.setData(currentData)
-
       onReady && onReady.call(this)
     }
 

@@ -28,11 +28,11 @@ const wrapToProxy = (object, keys) => {
       const targetValue = Reflect.get(target, key)
       if (targetValue && targetValue.__isProxy) return targetValue
       const valueInStoreMap = findInStoreMap(keys.concat([key]))
-      return valueInStoreMap !== undefined && valueInStoreMap || targetValue
+      return (valueInStoreMap !== undefined && valueInStoreMap) || targetValue
     },
     set (target, key, value) {
-      const pureValue = value.__isProxy && value.__data || value
-      const objectValue = isProxyNeeded(pureValue) && wrapToProxy(cloneObj(pureValue), keys.concat([key])) || pureValue
+      const pureValue = (value.__isProxy && value.__data) || value
+      const objectValue = (isProxyNeeded(pureValue) && wrapToProxy(cloneObj(pureValue), keys.concat([key]))) || pureValue
       const res = Reflect.set(target, key, objectValue)
       setValueInStoreMap(keys.concat([key]), pureValue)
       notifyUpdate()
@@ -43,7 +43,7 @@ const wrapToProxy = (object, keys) => {
 
 const findInStoreMap = (keys) => {
   return keys.reduce((acc, key) => {
-    return acc && acc[key] || undefined
+    return (acc && acc[key]) || undefined
   }, storeMap)
 }
 

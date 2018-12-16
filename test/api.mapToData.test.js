@@ -1,3 +1,4 @@
+const sinon = require('sinon')
 const chai = require('chai')
 chai.should()
 
@@ -5,6 +6,10 @@ const { mapToData } = require('../src')
 const { notifyStack } = require('../src/constant')
 
 describe('API mapToData', () => {
+  beforeEach(done => {
+    notifyStack.splice(0, notifyStack.length)
+    done()
+  })
   after((done) => {
     notifyStack.splice(0, notifyStack.length)
     done()
@@ -15,12 +20,14 @@ describe('API mapToData', () => {
       const pageOpt = {
         data: {
           name: 'wwayne'
-        }
+        },
+        setData: function (data) { this.data = data }
       }
       const dataFn = () => ({ where: 'sh' })
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
+      newPageOpt.onReady()
       newPageOpt.data.should.have.property('name', 'wwayne')
       newPageOpt.data.should.have.property('where', 'sh')
       done()
@@ -30,7 +37,8 @@ describe('API mapToData', () => {
       const pageOpt = {
         data: {
           name: 'wwayne'
-        }
+        },
+        setData: function (data) { this.data = data }
       }
       const dataFn = () => ({
         name: {
@@ -41,6 +49,7 @@ describe('API mapToData', () => {
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
+      newPageOpt.onReady()
       newPageOpt.data.name.should.have.property('first', 'w')
       newPageOpt.data.name.should.have.property('last', 'wayne')
       done()
@@ -64,15 +73,15 @@ describe('API mapToData', () => {
     })
 
     it('should setData when page load', (done) => {
-      let called = false
-      const pageOpt = { setData: () => { called = true } }
+      const stub = sinon.stub().returns({})
+      const pageOpt = { setData: stub }
       const dataFn = () => ({})
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
       newPageOpt.onReady()
-      called.should.equal(true)
 
+      stub.calledOnce.should.equal(true)
       done()
     })
   })

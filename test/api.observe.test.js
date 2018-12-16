@@ -17,7 +17,7 @@ class User {
         isLoaded: false,
         data: [{ brand: 'nike', size: 41 }, { brand: 'adidas', size: 40.5 }]
       }
-    }],
+    }]
     this.extraInfo = {
       where: 'sh'
     }
@@ -63,7 +63,7 @@ describe('API observe', () => {
     user.friends[0].pets[0].should.equal('mochacha')
 
     setTimeout(() => {
-      stub.calledOnce.should.be.true
+      stub.calledOnce.should.equal(true)
       storeMap.user.name.should.equal('wzx')
       storeMap.user.friends[0].name.should.equal('chengnanxiao')
       storeMap.user.friends[0].pets[0].should.equal('mochacha')
@@ -105,7 +105,7 @@ describe('API observe', () => {
       user.products[0].shoes.data[0].brand.should.equal('adidas')
 
       setTimeout(() => {
-        stub.calledOnce.should.be.true
+        stub.calledOnce.should.equal(true)
         storeMap.user.products[0].shoes.data.should.be.lengthOf(2)
         storeMap.user.products[0].shoes.data[0].should.have.property('brand', 'adidas')
         storeMap.user.products[0].shoes.data[1].should.have.property('brand', '3B')
@@ -129,7 +129,7 @@ describe('API observe', () => {
       user.products[0].shoes.data[1].brand.should.equal('jordan')
 
       setTimeout(() => {
-        stub.calledOnce.should.be.true
+        stub.calledOnce.should.equal(true)
         storeMap.user.products[0].shoes.data.should.be.lengthOf(2)
         storeMap.user.products[0].shoes.data[0].should.have.property('brand', 'adidas')
         storeMap.user.products[0].shoes.data[1].should.have.property('brand', 'jordan')
@@ -156,7 +156,7 @@ describe('API observe', () => {
       user.extraInfo.school = { name: 'ecust' }
 
       setTimeout(() => {
-        stub.calledOnce.should.be.true
+        stub.calledOnce.should.equal(true)
         storeMap.user.extraInfo.should.have.property('born', 'xj')
         storeMap.user.extraInfo.school.should.deep.equal({ name: 'ecust' })
 
