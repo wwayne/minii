@@ -1,6 +1,6 @@
 {
   "name": "minii",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "state management for wechat mini app",
   "main": "src/index.js",
   "scripts": {

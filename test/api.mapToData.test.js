@@ -27,6 +27,7 @@ describe('API mapToData', () => {
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
+      newPageOpt.onLoad()
       newPageOpt.onReady()
       newPageOpt.data.should.have.property('name', 'wwayne')
       newPageOpt.data.should.have.property('where', 'sh')
@@ -49,6 +50,7 @@ describe('API mapToData', () => {
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
+      newPageOpt.onLoad()
       newPageOpt.onReady()
       newPageOpt.data.name.should.have.property('first', 'w')
       newPageOpt.data.name.should.have.property('last', 'wayne')
@@ -64,7 +66,9 @@ describe('API mapToData', () => {
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
 
+      newPageOpt.onLoad()
       newPageOpt.onReady()
+      newPageOpt.onLoad()
       newPageOpt.onReady()
       notifyStack.should.have.lengthOf(2)
       newPageOpt.onUnload()
@@ -79,6 +83,7 @@ describe('API mapToData', () => {
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
+      newPageOpt.onLoad()
       newPageOpt.onReady()
 
       stub.calledOnce.should.equal(true)
