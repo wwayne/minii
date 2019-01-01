@@ -3,19 +3,17 @@ const { cloneObj } = require('../utils')
 
 module.exports = function (dataFn) {
   return function (pageOpt) {
-    const { onLoad, onReady, onUnload } = pageOpt
+    const { onLoad, onUnload } = pageOpt
 
     pageOpt.onLoad = function (opt) {
-      const dataFromStore = dataFn(storeMap)
-      this.setData(Object.assign({}, this.data, dataFromStore))
-      onLoad && onLoad.call(this, opt)
-    }
-
-    pageOpt.onReady = function () {
       const targetPage = this
-      const originalData = cloneObj(dataFn(storeMap))
+      const dataFromStore = dataFn(storeMap)
+      const originalData = cloneObj(dataFromStore)
+
       notifyStack.push([targetPage, dataFn, originalData])
-      onReady && onReady.call(this)
+      this.setData(Object.assign({}, this.data, dataFromStore))
+
+      onLoad && onLoad.call(this, opt)
     }
 
     pageOpt.onUnload = function () {
