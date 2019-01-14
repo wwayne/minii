@@ -7,10 +7,10 @@ module.exports = function (dataFn) {
 
     pageOpt.onLoad = function (opt) {
       const targetPage = this
-      const dataFromStore = dataFn(storeMap)
+      const dataFromStore = dataFn.call(targetPage, storeMap)
       const originalData = cloneObj(dataFromStore)
 
-      notifyStack.push([targetPage, dataFn, originalData])
+      notifyStack.push([targetPage, dataFn.bind(targetPage), originalData])
       this.setData(Object.assign({}, this.data, dataFromStore))
 
       onLoad && onLoad.call(this, opt)
