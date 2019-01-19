@@ -31,7 +31,7 @@ const wrapToProxy = (object, keys) => {
       return (valueInStoreMap !== undefined && valueInStoreMap) || targetValue
     },
     set (target, key, value) {
-      const pureValue = (value.__isProxy && value.__data) || value
+      const pureValue = (value && value.__isProxy && value.__data) || value
       const objectValue = (isProxyNeeded(pureValue) && wrapToProxy(cloneObj(pureValue), keys.concat([key]))) || pureValue
       const res = Reflect.set(target, key, objectValue)
       setValueInStoreMap(keys.concat([key]), pureValue)

@@ -1,5 +1,6 @@
 const sinon = require('sinon')
 const chai = require('chai')
+const { expect } = chai
 chai.should()
 
 const { observe } = require('../src')
@@ -49,6 +50,9 @@ describe('API observe', () => {
     user.name.should.equal('wwayne')
     user.friends[0].name.should.equal('cjt')
     user.friends[0].pets[0].should.equal('mocha')
+
+    user.friends.__isProxy.should.equal(true)
+    user.friends.__data.should.not.equal(undefined)
     Object.prototype.toString.call(user.update).should.equal('[object Function]')
     done()
   })
@@ -71,6 +75,16 @@ describe('API observe', () => {
       notifyStack.pop()
       done()
     }, 10)
+  })
+
+  it('should able to set to null or undefined', (done) => {
+    user.name = null
+    expect(user.name).to.be.a('null')
+
+    user.name = undefined
+    expect(user.name).to.be.an('undefined')
+
+    done()
   })
 
   context('array', () => {

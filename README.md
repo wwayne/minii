@@ -38,7 +38,7 @@ class UserStore {
   constructor () {
     this.name = 'A'
   }
-  
+
   changeName (name) {
     this.name = name
   }
@@ -96,6 +96,9 @@ mapToData会将状态映射到你当前页面的data上，和react-redux中的co
 observe会将一个store里面的变量都订阅在全局状态下，并通过mapToData让一个页面订阅这些变量，当在任何地方改变store里面的变量，变量的更新都会推送到订阅这些变量的页面中从而更新界面。
 
 推荐所有改变变量的方法都作为instance method写在store里面，而不是在其它任意的地方随意的改变一个store的变量
+
+## Tips
+1. For Object and Array, the attribute `__data` will return the original data instead of the Proxy
 
 ## Deployment
 1. `$ npm run build`
