@@ -8,6 +8,9 @@
 [download-image]: https://img.shields.io/npm/dm/minii.svg?style=flat-square
 [download-url]: https://npmjs.org/package/minii
 
+## 谁在使用
+![gh_a1cda2fbab45_258](https://user-images.githubusercontent.com/5305874/53417621-e9541400-3a10-11e9-9dd7-86ab851ddab5.jpg)
+
 ## Why
 I wanna keep it simple when developing Wechat Mini app. No need to import another framework(React, Vue) or bundler(Webpack, Gulp), the only thing I need is a state management.
 
