@@ -103,8 +103,6 @@ observe会将一个store里面的变量都订阅在全局状态下，并通过ma
 
 推荐所有改变变量的方法都作为instance method写在store里面，而不是在其它任意的地方随意的改变一个store的变量
 
-## Tips
-1. For Object and Array, the attribute `__data` will return the original data instead of the Proxy
 
 ## Deployment
 1. `$ npm run build`
