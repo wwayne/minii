@@ -1,12 +1,12 @@
 {
   "name": "minii",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "state management for wechat mini app",
   "main": "src/index.js",
   "scripts": {
     "fix": "standard --fix --verbose | snazzy",
     "lint": "standard --verbose | snazzy",
-    "pretest": "npm run fix",
+    "pretest": "npm run lint",
     "test": "mocha ./test/*.test.js",
     "build": "gulp"
   },
