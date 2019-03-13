@@ -178,5 +178,23 @@ describe('API observe', () => {
         done()
       }, 10)
     })
+
+    it('should able to delete a key', (done) => {
+      const stub = sinon.stub().returns({})
+      notifyStack.push([null, stub, {}])
+
+      user.extraInfo.gf = { name: 'jt' }
+      delete user.extraInfo.gf
+
+      setTimeout(() => {
+        stub.calledOnce.should.equal(true)
+        storeMap.user.extraInfo.should.not.have.property('gf')
+        const typeOfAttr = typeof user.extraInfo.gf
+        typeOfAttr.should.be.equal('undefined')
+
+        notifyStack.pop()
+        done()
+      }, 10)
+    })
   })
 })

@@ -37,6 +37,15 @@ const wrapToProxy = (object, keys) => {
       setValueInStoreMap(keys.concat([key]), pureValue)
       notifyUpdate()
       return res
+    },
+    deleteProperty (target, key) {
+      if (target[key]) {
+        Reflect.deleteProperty(target, key)
+        deleteKeyInStoreMap(keys.concat([key]))
+        notifyUpdate()
+        return true
+      }
+      return false
     }
   })
 }
@@ -56,4 +65,15 @@ const setValueInStoreMap = (keys, value) => {
     target = target[key]
   })
   target[lastKey] = value
+}
+
+const deleteKeyInStoreMap = (keys) => {
+  const len = keys.length
+  const lastKey = keys[len - 1]
+  let target = storeMap
+  keys.forEach((key, index) => {
+    if (index === len - 1) return
+    target = target[key]
+  })
+  delete target[lastKey]
 }
