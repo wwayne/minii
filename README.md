@@ -19,9 +19,6 @@ I wanna keep it simple when developing Wechat Mini app. No need to import anothe
 * `Tiny`: < 1KB 在导入小程序后小于1KB
 * `Simple`: 2 API 两个简单的API就可以完成状态管理
 
-## Notice
-如果特别在乎Andorid上的表现，请谨慎使用，仍有已知的问题因为小程序的平台兼容性尚未解决
-
 ## Installation 安装
 The base library should greater than 2.2.1 (小程序基础库版本 2.2.1 或以上)
 
