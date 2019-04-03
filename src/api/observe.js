@@ -1,7 +1,6 @@
 const { storeMap } = require('../constant')
 const { notifyUpdate } = require('../core')
 const { cloneObj, isProxyNeeded } = require('../utils')
-const Proxy = require('../libs/Proxy')
 
 module.exports = function (storeInstance, storeName) {
   storeName = storeName || storeInstance.constructor.name.toLowerCase()
