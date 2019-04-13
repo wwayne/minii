@@ -10,6 +10,7 @@
 
 ## 谁在使用
 ![gh_a1cda2fbab45_258](https://user-images.githubusercontent.com/5305874/53417621-e9541400-3a10-11e9-9dd7-86ab851ddab5.jpg)
+![gh_f977d523b1b8_258](https://user-images.githubusercontent.com/5305874/56073712-19961d00-5ddb-11e9-8b3b-70a40b9c1aa8.jpg)
 
 ## Why
 I wanna keep it simple when developing Wechat Mini app. No need to import another framework(React, Vue) or bundler(Webpack, Gulp), the only thing I need is a state management.
