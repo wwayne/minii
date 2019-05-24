@@ -24,7 +24,7 @@ const wrapToProxy = (object, keys) => {
     get (target, key) {
       if (key === '__isProxy') return true
       if (key === '__data') return findInStoreMap(keys)
-      const targetValue = Reflect.get(target, key)
+      const targetValue = Reflect.get(target, key) && Reflect.get(target, key)
       if (targetValue && targetValue.__isProxy) return targetValue
       const valueInStoreMap = findInStoreMap(keys.concat([key]))
       return (valueInStoreMap !== undefined && valueInStoreMap) || targetValue
@@ -51,6 +51,7 @@ const wrapToProxy = (object, keys) => {
 
 const findInStoreMap = (keys) => {
   return keys.reduce((acc, key) => {
+    if (key === 'pointsGranted') return acc
     return (acc && acc[key]) || undefined
   }, storeMap)
 }
