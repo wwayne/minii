@@ -8,27 +8,30 @@
 [download-image]: https://img.shields.io/npm/dm/minii.svg?style=flat-square
 [download-url]: https://npmjs.org/package/minii
 
-## 谁在使用
+## Who's using
 ![gh_a1cda2fbab45_258](https://user-images.githubusercontent.com/5305874/53417621-e9541400-3a10-11e9-9dd7-86ab851ddab5.jpg)
 ![gh_f977d523b1b8_258](https://user-images.githubusercontent.com/5305874/56073712-19961d00-5ddb-11e9-8b3b-70a40b9c1aa8.jpg)
 
-简体中文 | [English](./README-en.md)
+[简体中文](./README.md) | English
 
-## 特点
-* `体积小`: 在导入小程序后小于1KB
-* `易使用`: 通过两个API就可以完成状态管理
+## Why
 
-## 安装
-*小程序基础库版本 2.2.1 或以上*
+* `Tiny Size`: after importing into the app, the package's size is smaller than 1kb
+* `Simple Usage`: only 2 API for state management binding
+
+## Installation
+The base library should greater than 2.2.1
 
 1. `$ npm install minii --production`
 
-2. 在开发者工具里面依次点击 工具 -> 构建 npm
+2. In WeChat Developer Tool, Tools -> build npm
 
-3. 在开发者工具的详情里面勾选 `使用 npm 模块`
+3. In WeChat Developer Tool, Details -> check `Use NPM module`
 
-## 如何使用
-#### 1. 创建store(model)来保存对应的state
+Official doc: [how to use npm in wechat](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html?t=18082018)
+
+## How to use
+#### 1. Create store for observing data
 ```JS
 // stores/user.js
 
@@ -44,12 +47,12 @@ class UserStore {
   }
 }
 
-// 第二个参数'user'会将当前store的所有内部变量绑定在全局变量的user属性上
-// 如果第二个参数没有写，会默认使用该class名字的全小写
+// the second params 'user' gonna bind this store's attributes into globalState.user
+// if the second params is empty, the lowercase of the class name will be used
 export default observe(new UserSore(), 'user')
 ```
 
-#### 2. 将状态和页面联系起来
+#### 2. Bind state into page
 ```JS
 import { mapToData } from 'minii'
 import userStore from '../../stores/user'
@@ -65,7 +68,7 @@ Page(connect({
 }))
 ```
 
-#### 3. 在页面中使用绑定的data
+#### 3. Use the bound state in the page
 ```html
 <view>
   <text>My name</text>
@@ -74,8 +77,8 @@ Page(connect({
 </view>
 ```
 
-#### 4. 需要在小程序启动时引用创建的store(此举是为了调用observe)
-推荐在项目中创建一个文件统一引用所有的store，比如项目结构如下：
+#### 4. We need require store when launching the app (this is only for `observe`)
+Creating a file to import all stores is recommended, e.g.：
 
 ```js
 /stores
@@ -85,14 +88,14 @@ Page(connect({
 app.js
 ```
 
-然后在stores/index.js中引入所有store
+import all stores in stores/index.js
 
 ```js
 export userStore from './user'
 export shopStore from './shop
 ```
 
-最后在小程序的app.js中引用这个统一的文件
+require this file in mini-app's app.js
 
 ```js
 require('./stores/index')
@@ -101,13 +104,13 @@ require('./stores/index')
 ## API
 #### mapToData
 
-mapToData会将需要的数据映射到你当前页面的data上，和react-redux中的connect是类似的概念，这里的state是全局的状态，比如你之前用observe订阅了一个store `observer(instance, 'user')`，这个store里的局部变量就可以通过`state.user`得到
+`mapToDate` is for connecting state into page's data, you can think about it like `connect` in react-redux. After observing a store `observer(instance, 'user')`, we can get the store's state by `state.user`
 
 #### observe
 
-observe会将一个store里面的变量都订阅在全局状态下，并通过mapToData让一个页面订阅这些变量，当在任何地方改变store里面的变量，变量的更新都会推送到订阅这些变量的页面中从而更新界面。
+`observe` is for binding the store's attribute into the global state and observe the changes. While changing the store's observed attributes will lead pages' update.
 
-推荐所有改变变量的方法都作为内部方法写在store里面，而不是在其它任意的地方随意的改变一个store的变量
+Only changing store's attribute through store's instance methods is recommened
 
 
 ## Deployment
