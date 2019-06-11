@@ -12,7 +12,7 @@
 ![gh_a1cda2fbab45_258](https://user-images.githubusercontent.com/5305874/53417621-e9541400-3a10-11e9-9dd7-86ab851ddab5.jpg)
 ![gh_f977d523b1b8_258](https://user-images.githubusercontent.com/5305874/56073712-19961d00-5ddb-11e9-8b3b-70a40b9c1aa8.jpg)
 
-简体中文 | [English](./README-en.md)
+简体中文 | [English](./README-EN.md)
 
 ## 特点
 * `体积小`: 在导入小程序后小于1KB
