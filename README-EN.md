@@ -49,7 +49,7 @@ class UserStore {
 
 // the second params 'user' gonna bind this store's attributes into globalState.user
 // if the second params is empty, the lowercase of the class name will be used
-export default observe(new UserSore(), 'user')
+export default observe(new UserStore(), 'user')
 ```
 
 #### 2. Bind state into page
@@ -58,13 +58,13 @@ import { mapToData } from 'minii'
 import userStore from '../../stores/user'
 
 const connect = mapToData((state) => ({
-	myName: state.user.name
+  myName: state.user.name
 }))
 
 Page(connect({
- onChangeName () {
-   userStore.chnageName('B')
- }
+  onChangeName () {
+    userStore.chnageName('B')
+  }
 }))
 ```
 
