@@ -63,7 +63,7 @@ const connect = mapToData((state) => ({
 
 Page(connect({
   onChangeName () {
-    userStore.chnageName('B')
+    userStore.changeName('B')
   }
 }))
 ```
