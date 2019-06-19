@@ -46,7 +46,7 @@ class UserStore {
 
 // 第二个参数'user'会将当前store的所有内部变量绑定在全局变量的user属性上
 // 如果第二个参数没有写，会默认使用该class名字的全小写
-export default observe(new UserSore(), 'user')
+export default observe(new UserStore(), 'user')
 ```
 
 #### 2. 将状态和页面联系起来
