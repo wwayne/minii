@@ -55,13 +55,13 @@ import { mapToData } from 'minii'
 import userStore from '../../stores/user'
 
 const connect = mapToData((state) => ({
-	myName: state.user.name
+  myName: state.user.name
 }))
 
 Page(connect({
- onChangeName () {
-   userStore.chnageName('B')
- }
+  onChangeName () {
+    userStore.chnageName('B')
+  }
 }))
 ```
 
