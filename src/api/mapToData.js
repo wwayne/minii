@@ -2,25 +2,30 @@ const { storeMap, notifyStack } = require('../constant')
 const { cloneObj } = require('../utils')
 
 module.exports = function (dataFn) {
-  return function (pageOpt) {
-    const { onLoad, onUnload } = pageOpt
+  return function (opt) {
+    const { onLoad, onUnload, attached, detached } = opt
 
-    pageOpt.onLoad = function (opt) {
-      const targetPage = this
-      const dataFromStore = dataFn.call(targetPage, storeMap)
+    function initialize(opt) {
+      const target = this
+      const dataFromStore = dataFn.call(target, storeMap)
       const originalData = cloneObj(dataFromStore)
 
-      notifyStack.push([targetPage, dataFn.bind(targetPage), originalData])
+      notifyStack.push([target, dataFn.bind(target), originalData])
       this.setData(Object.assign({}, this.data, dataFromStore))
 
       onLoad && onLoad.call(this, opt)
+      attached && attached.call(this, opt)
     }
 
-    pageOpt.onUnload = function () {
+    function destroy() {
       notifyStack.pop()
       onUnload && onUnload.call(this)
+      detached && detached.call(this)
     }
 
-    return pageOpt
+    opt.onLoad = opt.attached = initialize
+    opt.onUnload = opt.detached = destroy
+
+    return opt
   }
 }
