@@ -75,11 +75,14 @@ describe('API mapToData', () => {
     it('should setData when page load', (done) => {
       const stub = sinon.stub().returns({})
       const pageOpt = { setData: stub }
-      const dataFn = () => ({})
+      const dataFn = (state, opt) => {
+        opt.should.have.property('id', 'test')
+        return {}
+      }
 
       const connect = mapToData(dataFn)
       const newPageOpt = connect(pageOpt)
-      newPageOpt.onLoad()
+      newPageOpt.onLoad({ id: 'test' })
 
       stub.calledOnce.should.equal(true)
       done()

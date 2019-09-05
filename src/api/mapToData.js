@@ -7,7 +7,7 @@ module.exports = function (dataFn) {
 
     pageOpt.onLoad = function (opt) {
       const targetPage = this
-      const dataFromStore = dataFn.call(targetPage, storeMap)
+      const dataFromStore = dataFn.call(targetPage, storeMap, opt)
       const originalData = cloneObj(dataFromStore)
 
       notifyStack.push([targetPage, dataFn.bind(targetPage), originalData])
