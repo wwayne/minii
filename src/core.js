@@ -10,8 +10,8 @@ exports.notifyUpdate = function () {
     if (--batch === 0) {
       const len = notifyStack.length
       for (let i = len - 1; i >= 0; i--) {
-        const [targetPage, dataFn, oldData] = notifyStack[i]
-        const newData = dataFn(storeMap)
+        const [targetPage, dataFn, oldData, opt] = notifyStack[i]
+        const newData = dataFn(storeMap, opt)
         if (!isEqualObj(oldData, newData)) {
           notifyStack[i][2] = cloneObj(newData)
           targetPage.setData(newData)
