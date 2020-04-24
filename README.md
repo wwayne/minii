@@ -54,9 +54,13 @@ export default observe(new UserStore(), 'user')
 import { mapToData } from 'minii'
 import userStore from '../../stores/user'
 
-const connect = mapToData((state) => ({
-  myName: state.user.name
-}))
+const connect = mapToData(function (state, opt) {
+  // opt 与 onLoad(opt) 的opt一致
+  // this.data 可以获取到当前页面的data
+  return {
+    myName: state.user.name
+  }
+))
 
 Page(connect({
   onChangeName () {

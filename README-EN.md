@@ -57,9 +57,13 @@ export default observe(new UserStore(), 'user')
 import { mapToData } from 'minii'
 import userStore from '../../stores/user'
 
-const connect = mapToData((state) => ({
-  myName: state.user.name
-}))
+const connect = mapToData(function (state, opt) {
+  // opt is the same one in onLoad(opt)
+  // using this.data to get current page's data
+  return {
+    myName: state.user.name
+  }
+))
 
 Page(connect({
   onChangeName () {
