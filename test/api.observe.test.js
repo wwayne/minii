@@ -22,6 +22,7 @@ class User {
     this.extraInfo = {
       where: 'sh'
     }
+    this.address = {} // { id: { data: [] } }
   }
 
   update () {
@@ -147,6 +148,22 @@ describe('API observe', () => {
         storeMap.user.products[0].shoes.data.should.be.lengthOf(2)
         storeMap.user.products[0].shoes.data[0].should.have.property('brand', 'adidas')
         storeMap.user.products[0].shoes.data[1].should.have.property('brand', 'jordan')
+
+        notifyStack.pop()
+        done()
+      }, 10)
+    })
+
+    it('should able to observe Array.concat', (done) => {
+      const stub = sinon.stub().returns({})
+      notifyStack.push([null, stub, {}])
+
+      user.address['test'] = { data: [] }
+      user.address['test'].data = user.address['test'].data.concat(['id1'])
+
+      setTimeout(() => {
+        stub.calledOnce.should.equal(true)
+        storeMap.user.address['test'].data[0].should.equal('id1')
 
         notifyStack.pop()
         done()
