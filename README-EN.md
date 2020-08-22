@@ -65,6 +65,7 @@ const connect = mapToData(function (state, opt) {
   }
 ))
 
+// Same for Component
 Page(connect({
   onChangeName () {
     userStore.changeName('B')

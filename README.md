@@ -62,6 +62,7 @@ const connect = mapToData(function (state, opt) {
   }
 ))
 
+// 亦可以使用在Component
 Page(connect({
   onChangeName () {
     userStore.changeName('B')
