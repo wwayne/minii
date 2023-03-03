@@ -23,7 +23,7 @@
     "chai": "^4.2.0",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
-    "gulp-uglify-es": "^1.0.4",
+    "gulp-uglify-es": "^3.0.0",
     "mocha": "^10.2.0",
     "sinon": "^7.1.0",
     "snazzy": "^8.0.0",
